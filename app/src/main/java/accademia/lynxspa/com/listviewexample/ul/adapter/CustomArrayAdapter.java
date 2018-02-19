@@ -33,20 +33,8 @@ public class CustomArrayAdapter extends ArrayAdapter<Contatto> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.item_layout, parent, false);
-
-        TextView textView = (TextView) rowView.findViewById(R.id.labelnome);
-        Contatto itemName = this.values.get(position);
-        textView.setText(itemName.getNomeCognome());
-
-        TextView textView2 = (TextView) rowView.findViewById(R.id.labeltelefono);
-        textView2.setText(itemName.getTelefono());
-        // Set icon
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
-        imageView.setImageResource(R.drawable.ic_fruit);
-        return rowView;
-
+        View shish=getViewOptimized(position,convertView,parent);
+        return shish;
     }
 
     public View getViewOptimized(int position, View convertView, ViewGroup parent){
@@ -57,6 +45,7 @@ public class CustomArrayAdapter extends ArrayAdapter<Contatto> {
             viewHolder= new ViewHolder();
             viewHolder.name= (TextView) convertView.findViewById(R.id.labelnome);
             viewHolder.number= (TextView) convertView.findViewById(R.id.labeltelefono);
+            viewHolder.image = (ImageView) convertView.findViewById(R.id.logo);
             convertView.setTag(viewHolder);
         }
         else {
@@ -66,6 +55,8 @@ public class CustomArrayAdapter extends ArrayAdapter<Contatto> {
         Contatto contatto= getItem(position);
         viewHolder.name.setText(contatto.getNomeCognome());
         viewHolder.number.setText(contatto.getTelefono());
+        Drawable draw = context.getResources().getDrawable(R.drawable.ic_fruit);
+        viewHolder.image.setImageDrawable(draw);
         return convertView;
 
     }
@@ -78,6 +69,7 @@ public class CustomArrayAdapter extends ArrayAdapter<Contatto> {
     private class ViewHolder{
         private TextView name;
         private TextView number;
+        private ImageView image;
     }
 
 
